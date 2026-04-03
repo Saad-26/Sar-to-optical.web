@@ -102,12 +102,18 @@ const MainContent = () => {
           <p style={{ color: '#94a3b8', fontSize: '1.1rem', marginBottom: '40px' }}>Upload a SAR image tensor to see our S-CycleGAN in action</p>
 
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
-            <input 
-              type="file" 
-              accept="image/png, image/jpeg" 
-              onChange={handleFileChange}
-              style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.2)', padding: '12px', borderRadius: '8px', color: '#fff' }}
-            />
+            <label 
+              style={{ background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(255,255,255,0.3)', padding: '12px 24px', borderRadius: '8px', color: '#fff', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '10px' }}
+            >
+              <UploadCloud size={20} color="#3b82f6" />
+              <span style={{ fontSize: '1rem' }}>{file ? (file.name.length > 20 ? file.name.substring(0,20)+'...' : file.name) : "Choose SAR Image..."}</span>
+              <input 
+                type="file" 
+                accept="image/png, image/jpeg" 
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+            </label>
             <button className="btn" onClick={handleTranslate} disabled={loading || !file} style={{ padding: '14px 28px' }}>
               {loading ? <><Loader2 className="animate-spin" size={20}/> Translating...</> : "Translate Image"}
             </button>
