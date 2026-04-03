@@ -97,67 +97,75 @@ const MainContent = () => {
       </section>
 
       <section ref={testSectionRef} id="test" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '100px 20px' }}>
-        <div className="glass-panel" style={{ maxWidth: '900px', width: '100%', padding: '50px', textAlign: 'center' }}>
+        <div className="glass-panel" style={{ maxWidth: '1000px', width: '100%', padding: '60px 40px', textAlign: 'center' }}>
           <h2 style={{ fontSize: '2.5rem', marginTop: 0, marginBottom: '10px' }}>Synthesize Live Data</h2>
           <p style={{ color: '#94a3b8', fontSize: '1.1rem', marginBottom: '40px' }}>Upload a SAR image tensor to see our S-CycleGAN in action</p>
 
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
-            <button 
-              type="button"
-              onClick={() => document.getElementById('hiddenFileInput').click()}
-              className="btn"
-            >
-              <UploadCloud size={20} />
-              <span>{file ? (file.name.length > 20 ? file.name.substring(0,20)+'...' : file.name) : "Choose SAR Image..."}</span>
-            </button>
-            <input 
-              id="hiddenFileInput"
-              type="file" 
-              accept="image/png, image/jpeg" 
-              onChange={handleFileChange}
-              style={{ display: 'none' }}
-            />
-            <button className="btn" onClick={handleTranslate} disabled={loading || !file} style={{ padding: '14px 28px' }}>
-              {loading ? <><Loader2 className="animate-spin" size={20}/> Translating...</> : "Translate Image"}
-            </button>
+          <div style={{ background: 'rgba(0,0,0,0.2)', padding: '40px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '40px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '25px', marginBottom: '50px' }}>
+              <button 
+                type="button"
+                onClick={() => document.getElementById('hiddenFileInput').click()}
+                className="btn"
+              >
+                <UploadCloud size={20} />
+                <span>{file ? (file.name.length > 20 ? file.name.substring(0,20)+'...' : file.name) : "Choose SAR Image..."}</span>
+              </button>
+              <input 
+                id="hiddenFileInput"
+                type="file" 
+                accept="image/png, image/jpeg" 
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+              <button className="btn" onClick={handleTranslate} disabled={loading || !file} style={{ padding: '16px 36px' }}>
+                {loading ? <><Loader2 className="animate-spin" size={20}/> Translating...</> : "Translate Image"}
+              </button>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
+               {/* Input Card */}
+               <div style={{ textAlign: 'left' }}>
+                 <h3 style={{ margin: '0 0 15px 0', fontSize: '1.2rem', color: '#f8fafc', opacity: 0.8 }}>Input (SAR)</h3>
+                 <div style={{ width: '100%', aspectRatio: '1/1', background: '#000', borderRadius: '16px', position: 'relative', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+                    {inputSrc ? (
+                      <img src={inputSrc} alt="SAR Input" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }} />
+                    ) : (
+                      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#64748b', gap: '10px' }}>
+                        <Aperture size={32} opacity={0.3} />
+                        <span>No image selected</span>
+                      </div>
+                    )}
+                 </div>
+               </div>
+
+               {/* Output Card */}
+               <div style={{ textAlign: 'left' }}>
+                 <h3 style={{ margin: '0 0 15px 0', fontSize: '1.2rem', color: '#f8fafc', opacity: 0.8 }}>Output (Optical)</h3>
+                 <div style={{ width: '100%', aspectRatio: '1/1', background: '#000', borderRadius: '16px', position: 'relative', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+                    {loading && (
+                      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.7)', zIndex: 10, backdropFilter: 'blur(4px)' }}>
+                        <Loader2 className="animate-spin" size={48} color="#3b82f6" />
+                      </div>
+                    )}
+                    {outputSrc ? (
+                      <img src={outputSrc} alt="Optical Output" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }} />
+                    ) : (
+                      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#64748b', gap: '10px' }}>
+                        <Activity size={32} opacity={0.3} />
+                        <span>Awaiting Translation...</span>
+                      </div>
+                    )}
+                 </div>
+               </div>
+            </div>
           </div>
 
           {error && (
-            <div style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#fca5a5', padding: '15px', borderRadius: '8px', marginBottom: '30px' }}>
+            <div style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#fca5a5', padding: '20px', borderRadius: '12px', marginTop: '20px', border: '1px solid rgba(239, 68, 68, 0.3)' }}>
               {error}
             </div>
           )}
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
-             {/* Input Card */}
-             <div style={{ background: 'rgba(0,0,0,0.3)', padding: '25px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-               <h3 style={{ margin: '0 0 20px 0', color: '#f8fafc' }}>Input (SAR)</h3>
-               <div style={{ width: '100%', aspectRatio: '1/1', background: '#000', borderRadius: '8px', position: 'relative', overflow: 'hidden', border: '1px dashed rgba(255,255,255,0.2)' }}>
-                  {inputSrc ? (
-                    <img src={inputSrc} alt="SAR Input" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }} />
-                  ) : (
-                    <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b' }}>No image selected</span>
-                  )}
-               </div>
-             </div>
-
-             {/* Output Card */}
-             <div style={{ background: 'rgba(0,0,0,0.3)', padding: '25px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-               <h3 style={{ margin: '0 0 20px 0', color: '#f8fafc' }}>Output (Optical)</h3>
-               <div style={{ width: '100%', aspectRatio: '1/1', background: '#000', borderRadius: '8px', position: 'relative', overflow: 'hidden', border: '1px dashed rgba(255,255,255,0.2)' }}>
-                  {loading && (
-                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.6)', zIndex: 10 }}>
-                      <Loader2 className="animate-spin" size={40} color="#3b82f6" />
-                    </div>
-                  )}
-                  {outputSrc ? (
-                    <img src={outputSrc} alt="Optical Output" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }} />
-                  ) : (
-                    <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b' }}>Awaiting Translation...</span>
-                  )}
-               </div>
-             </div>
-          </div>
         </div>
       </section>
 
