@@ -106,10 +106,9 @@ const MainContent = () => {
               type="button"
               onClick={() => document.getElementById('hiddenFileInput').click()}
               className="btn"
-              style={{ background: '#3b82f6', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' }}
             >
-              <UploadCloud size={20} color="#ffffff" />
-              <span style={{ color: '#ffffff', fontWeight: 'bold' }}>{file ? (file.name.length > 20 ? file.name.substring(0,20)+'...' : file.name) : "Choose SAR Image..."}</span>
+              <UploadCloud size={20} />
+              <span>{file ? (file.name.length > 20 ? file.name.substring(0,20)+'...' : file.name) : "Choose SAR Image..."}</span>
             </button>
             <input 
               id="hiddenFileInput"
