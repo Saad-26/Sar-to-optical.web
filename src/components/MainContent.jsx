@@ -106,10 +106,10 @@ const MainContent = () => {
               type="button"
               onClick={() => document.getElementById('hiddenFileInput').click()}
               className="btn"
-              style={{ background: 'rgba(255, 255, 255, 0.1)', border: '1px solid rgba(255,255,255,0.3)', boxShadow: 'none' }}
+              style={{ background: '#3b82f6', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' }}
             >
-              <UploadCloud size={20} color="#60a5fa" />
-              <span>{file ? (file.name.length > 20 ? file.name.substring(0,20)+'...' : file.name) : "Choose SAR Image..."}</span>
+              <UploadCloud size={20} color="#ffffff" />
+              <span style={{ color: '#ffffff', fontWeight: 'bold' }}>{file ? (file.name.length > 20 ? file.name.substring(0,20)+'...' : file.name) : "Choose SAR Image..."}</span>
             </button>
             <input 
               id="hiddenFileInput"
@@ -133,11 +133,11 @@ const MainContent = () => {
              {/* Input Card */}
              <div style={{ background: 'rgba(0,0,0,0.3)', padding: '25px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
                <h3 style={{ margin: '0 0 20px 0', color: '#f8fafc' }}>Input (SAR)</h3>
-               <div style={{ width: '100%', aspectRatio: '1/1', background: '#000', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '1px dashed rgba(255,255,255,0.2)' }}>
+               <div style={{ width: '100%', aspectRatio: '1/1', background: '#000', borderRadius: '8px', position: 'relative', overflow: 'hidden', border: '1px dashed rgba(255,255,255,0.2)' }}>
                   {inputSrc ? (
-                    <img src={inputSrc} alt="SAR Input" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                    <img src={inputSrc} alt="SAR Input" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }} />
                   ) : (
-                    <span style={{ color: '#64748b' }}>No image selected</span>
+                    <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b' }}>No image selected</span>
                   )}
                </div>
              </div>
@@ -145,16 +145,16 @@ const MainContent = () => {
              {/* Output Card */}
              <div style={{ background: 'rgba(0,0,0,0.3)', padding: '25px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
                <h3 style={{ margin: '0 0 20px 0', color: '#f8fafc' }}>Output (Optical)</h3>
-               <div style={{ width: '100%', aspectRatio: '1/1', background: '#000', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '1px dashed rgba(255,255,255,0.2)', position: 'relative' }}>
+               <div style={{ width: '100%', aspectRatio: '1/1', background: '#000', borderRadius: '8px', position: 'relative', overflow: 'hidden', border: '1px dashed rgba(255,255,255,0.2)' }}>
                   {loading && (
                     <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.6)', zIndex: 10 }}>
                       <Loader2 className="animate-spin" size={40} color="#3b82f6" />
                     </div>
                   )}
                   {outputSrc ? (
-                    <img src={outputSrc} alt="Optical Output" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                    <img src={outputSrc} alt="Optical Output" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }} />
                   ) : (
-                    <span style={{ color: '#64748b' }}>Awaiting Translation...</span>
+                    <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b' }}>Awaiting Translation...</span>
                   )}
                </div>
              </div>
