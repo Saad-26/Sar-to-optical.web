@@ -106,9 +106,9 @@ const MainContent = () => {
               type="button"
               onClick={() => document.getElementById('hiddenFileInput').click()}
               className="btn"
-              style={{ background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(255,255,255,0.3)', boxShadow: 'none' }}
+              style={{ background: 'rgba(255, 255, 255, 0.1)', border: '1px solid rgba(255,255,255,0.3)', boxShadow: 'none' }}
             >
-              <UploadCloud size={20} color="#3b82f6" />
+              <UploadCloud size={20} color="#60a5fa" />
               <span>{file ? (file.name.length > 20 ? file.name.substring(0,20)+'...' : file.name) : "Choose SAR Image..."}</span>
             </button>
             <input 
@@ -135,7 +135,7 @@ const MainContent = () => {
                <h3 style={{ margin: '0 0 20px 0', color: '#f8fafc' }}>Input (SAR)</h3>
                <div style={{ width: '100%', aspectRatio: '1/1', background: '#000', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '1px dashed rgba(255,255,255,0.2)' }}>
                   {inputSrc ? (
-                    <img src={inputSrc} alt="SAR Input" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    <img src={inputSrc} alt="SAR Input" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                   ) : (
                     <span style={{ color: '#64748b' }}>No image selected</span>
                   )}
@@ -152,7 +152,7 @@ const MainContent = () => {
                     </div>
                   )}
                   {outputSrc ? (
-                    <img src={outputSrc} alt="Optical Output" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    <img src={outputSrc} alt="Optical Output" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                   ) : (
                     <span style={{ color: '#64748b' }}>Awaiting Translation...</span>
                   )}
